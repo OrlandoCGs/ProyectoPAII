@@ -1,5 +1,6 @@
 import psycopg2
 import sqlparse
+import os
 
 # Reemplaza con tu cadena de conexión real
 conn = psycopg2.connect(
@@ -32,3 +33,8 @@ except Exception as e:
 finally:
     cur.close()
     conn.close()
+
+if __name__ == '__main__':
+    if not os.path.exists(app.config ['UPLOAD_FOLDER']):
+        os.makedirs(app.config [ 'UPLOAD_FOLDER'])
+    app.run(debug=True, host="0.0.0.0", port=os.getenv("PORT", default=5000))
